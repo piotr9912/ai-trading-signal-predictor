@@ -1,5 +1,6 @@
 import yfinance as yf
 import pandas as pd
+import matplotlib.pyplot as plt
 
 from features.indicators import add_indicators
 from model.train import train_model
@@ -35,3 +36,18 @@ preds = predict(model, X_test)
 accuracy = (preds == y_test).mean()
 
 print("Model accuracy:", accuracy)
+
+# 🔥 WYKRES
+plt.figure(figsize=(10, 5))
+plt.plot(y_test.values, label="Actual")
+plt.plot(preds, label="Predicted", alpha=0.7)
+
+plt.title("Prediction vs Actual")
+plt.xlabel("Time")
+plt.ylabel("Direction (0/1)")
+plt.legend()
+
+# 🔥 ZAPIS DO PLIKU
+plt.savefig("charts/prediction_plot.png")
+
+plt.show()
